@@ -1,8 +1,20 @@
-# reactive-data-demo-quarkus-mvn
+# Demo app for Hibernate Reactive Data Repositories on Quarkus
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+[Hibernate Data Repositories](https://hibernate.org/repositories) is an implementation of Jakarta Data backed by Hibernate ORM.
+This project shows Hibernate Data Repositories used from Quarkus with Hibernate Reactive and RESTEasy Reactive.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+Here we observe:
+
+- Jakarta Persistence annotations used to declare and map entity types like `Book`, `Author`, and `Publisher`,
+- Jakarta Data annotations used to declare a `Library` repository acting as a facade to Hibernate's `StatelessSession`, and
+- JAX-RS annotations used to declare the frontend `LibraryResource`, with `Library` injected via CDI.- `RequestScopedStatelessSession` and `WithSessionInterceptor` provide make a reactive `StatelessSession` available to the reactive repository.
+
+## Dependencies:
+
+- Quarkus 3.21 or above, with RESTEasy Reactive and Jackson
+- Jakarta Data 1.0.1
+- Hibernate Reactive 2.4.7
+- Hibernate Metamodel Generator 6.6.15
 
 ## Running the application in dev mode
 
