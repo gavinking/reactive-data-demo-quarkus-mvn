@@ -7,7 +7,8 @@ Here we observe:
 
 - Jakarta Persistence annotations used to declare and map entity types like `Book`, `Author`, and `Publisher`,
 - Jakarta Data annotations used to declare a `Library` repository acting as a facade to Hibernate's `StatelessSession`, and
-- JAX-RS annotations used to declare the frontend `LibraryResource`, with `Library` injected via CDI.- `RequestScopedStatelessSession` and `WithSessionInterceptor` provide make a reactive `StatelessSession` available to the reactive repository.
+- JAX-RS annotations used to declare the frontend `LibraryResource`, with `Library` injected via CDI.
+- `RequestScopedStatelessSession` and `WithSessionInterceptor` make a reactive `StatelessSession` available for injection to the reactive repository.
 
 ## Dependencies:
 
