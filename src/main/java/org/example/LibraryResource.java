@@ -2,7 +2,6 @@ package org.example;
 
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 
 import java.util.List;
@@ -41,11 +40,11 @@ public class LibraryResource {
 
     @POST
     @Path("/delete/{isbn}")
-    @Transactional
     public Uni<String> delete(@PathParam("isbn") String isbn) {
-        var session = library.session();
-        return session.delete(session.get(Book.class, isbn))
-                .map(b -> "Deleted " + isbn);
+        return library.byIsbn(isbn)
+                .call(library::delete)
+                .map(b -> "Deleted " + isbn)
+                .onFailure().transform(e -> new NotAcceptableException(isbn));
     }
 
     @GET

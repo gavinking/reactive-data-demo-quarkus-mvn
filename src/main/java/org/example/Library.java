@@ -29,6 +29,10 @@ public interface Library {
     @Insert
     Uni<Void> add(Book book);
 
+    @Delete
+    Uni<Void> delete(Book book);
+
+// not supported in Hibernate 6 (wait for Hibernate 7)
 //    @Delete
 //    Uni<Void> delete(String isbn);
 
