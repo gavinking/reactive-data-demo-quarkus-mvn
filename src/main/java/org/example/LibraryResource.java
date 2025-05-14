@@ -1,14 +1,13 @@
 package org.example;
 
 import io.smallrye.mutiny.Uni;
-import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 
 import java.util.List;
 
-@WithSession
+@WithSession // enables the request-scoped stateless session
 @Path("/")
 public class LibraryResource {
 
