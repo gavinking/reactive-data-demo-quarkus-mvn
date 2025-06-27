@@ -7,13 +7,18 @@ import jakarta.ws.rs.*;
 import java.util.List;
 
 @WithSession // enables the request-scoped stateless session
-@Path("/")
+@Path("/books")
 public class LibraryResource {
 
     @Inject Library library;
 
     @GET
-    @Path("/book/{isbn}")
+    public Uni<List<Book>> allBooks() {
+        return library.allBooks(_Book.title.ascIgnoreCase());
+    }
+
+    @GET
+    @Path("/{isbn}")
     public Uni<Book> byIsbn(@PathParam("isbn") String isbn) {
         return library.byIsbn(isbn)
                 .onFailure().transform(e -> new NotFoundException(isbn));
@@ -26,20 +31,13 @@ public class LibraryResource {
         return library.byTitle(pattern);
     }
 
-    @GET
-    @Path("/books")
-    public Uni<List<Book>> allBooks() {
-        return library.allBooks();
-    }
-
     @POST
-    @Path("/new")
     public Uni<String> create(Book book) {
         return library.add(book).map(v ->"Added " + book.isbn);
     }
 
-    @POST
-    @Path("/delete/{isbn}")
+    @DELETE
+    @Path("/{isbn}")
     public Uni<String> delete(@PathParam("isbn") String isbn) {
         return library.byIsbn(isbn)
                 .call(library::delete)
